@@ -1,0 +1,70 @@
+<div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-primary">Gestión de Tareas</h1>
+      <p class="text-gray-600 mt-2">Administra las tareas del sistema</p>
+    </div>
+  
+    <div class="mb-6">
+        <button class="btn btn-primary" (click)="returnToUsers()">
+            Regresar
+          </button>
+      <button class="btn btn-primary" (click)="createTask()">
+        Crear Tarea
+      </button>
+    </div>
+  
+    <div class="w-4/5 mx-auto bg-base-100 rounded-lg shadow-lg">
+      <div class="overflow-x-auto">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Título</th>
+              <th>Usuario</th>
+              <th>Estado</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of tasks">
+              <td>{{ task.id }}</td>
+              <td>{{ task.title }}</td>
+              <td>{{ task.user.name }}</td>
+              <td>
+                <span class="badge" [class.badge-success]="task.completed" [class.badge-warning]="!task.completed">
+                  {{ task.completed ? 'Completada' : 'Pendiente' }}
+                </span>
+              </td>
+              <td>
+                <div class="flex justify-center gap-2">
+                  <button 
+                    class="btn btn-ghost btn-sm"
+                    (click)="viewTask(task.id)"
+                    title="Ver detalles"
+                  >
+                    👁️
+                  </button>
+                  
+                  <button 
+                    class="btn btn-ghost btn-sm"
+                    (click)="editTask(task.id)"
+                    title="Editar"
+                  >
+                    ✏️
+                  </button>
+  
+                  <button 
+                    class="btn btn-ghost btn-sm text-error"
+                    (click)="deleteTask(task.id)"
+                    title="Eliminar"
+                  >
+                    🗑️
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,87 @@
+<div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-primary">{{ title }}</h1>
+    </div>
+  
+    <div class="w-4/5 mx-auto bg-base-100 rounded-lg shadow-lg p-6">
+      <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+        <div class="form-control w-full mb-4">
+          <label class="label">
+            <span class="label-text">Título</span>
+          </label>
+          <input 
+            type="text" 
+            class="input input-bordered w-full" 
+            [(ngModel)]="task.title"
+            name="title"
+            [readonly]="mode === 'view'"
+            required
+          >
+        </div>
+  
+        <div class="form-control w-full mb-4">
+          <label class="label">
+            <span class="label-text">Descripción</span>
+          </label>
+          <textarea 
+            class="textarea textarea-bordered w-full" 
+            [(ngModel)]="task.description"
+            name="description"
+            [readonly]="mode === 'view'"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+  
+        <div class="form-control w-full mb-4">
+          <label class="label">
+            <span class="label-text">Usuario Asignado</span>
+          </label>
+          <select 
+            class="select select-bordered w-full"
+            [(ngModel)]="task.user_id"
+            name="user_id"
+            [disabled]="mode === 'view'"
+            required
+          >
+            <option value="">Selecciona un usuario</option>
+            <option *ngFor="let user of users" [value]="user.id">
+              {{ user.name }}
+            </option>
+          </select>
+        </div>
+  
+        <div class="form-control w-full mb-4">
+          <label class="label cursor-pointer">
+            <span class="label-text">Tarea Completada</span>
+            <input 
+              type="checkbox" 
+              class="toggle toggle-primary" 
+              [(ngModel)]="task.completed"
+              name="completed"
+              [disabled]="mode === 'view'"
+            >
+          </label>
+        </div>
+  
+        <div class="flex justify-end gap-4 mt-6">
+          <button 
+            type="button" 
+            class="btn btn-ghost"
+            (click)="goBack()"
+          >
+            Cancelar
+          </button>
+  
+          <button 
+            type="submit" 
+            class="btn btn-primary"
+            *ngIf="mode !== 'view'"
+            [disabled]="!taskForm.form.valid"
+          >
+            {{ mode === 'create' ? 'Crear' : 'Guardar Cambios' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

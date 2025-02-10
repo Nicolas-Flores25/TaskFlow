@@ -1,0 +1,75 @@
+<!-- manage-users.component.html -->
+<div class="container mx-auto px-4 py-8">
+    <!-- Encabezado -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-primary">{{ title }}</h1>
+    </div>
+  
+    <!-- Formulario -->
+    <div class="w-4/5 mx-auto bg-base-100 rounded-lg shadow-lg p-6">
+      <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+        <!-- Nombre -->
+        <div class="form-control w-full mb-4">
+          <label class="label">
+            <span class="label-text">Nombre</span>
+          </label>
+          <input 
+            type="text" 
+            class="input input-bordered w-full" 
+            [(ngModel)]="user.name"
+            name="name"
+            [readonly]="mode === 'view'"
+            required
+          >
+        </div>
+  
+        <!-- Email -->
+        <div class="form-control w-full mb-4">
+          <label class="label">
+            <span class="label-text">Email</span>
+          </label>
+          <input 
+            type="email" 
+            class="input input-bordered w-full" 
+            [(ngModel)]="user.email"
+            name="email"
+            [readonly]="mode === 'view'"
+            required
+          >
+        </div>
+  
+        <!-- Password (solo para crear) -->
+        <div class="form-control w-full mb-4" *ngIf="mode === 'create'">
+          <label class="label">
+            <span class="label-text">Contraseña</span>
+          </label>
+          <input 
+            type="password" 
+            class="input input-bordered w-full" 
+            [(ngModel)]="user.password"
+            name="password"
+            required
+          >
+        </div>
+  
+        <!-- Botones -->
+        <div class="flex justify-end gap-4 mt-6">
+          <button 
+            type="button" 
+            class="btn btn-ghost"
+            (click)="goBack()"
+          >
+            Cancelar
+          </button>
+  
+          <button 
+            type="submit" 
+            class="btn btn-primary"
+            *ngIf="mode !== 'view'"
+          >
+            {{ mode === 'create' ? 'Crear' : 'Guardar Cambios' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
